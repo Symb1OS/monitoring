@@ -18,8 +18,10 @@
 
 var defaultUrl = 'status';
 
-var versionurl = 'version';
-var documentationurl = 'https://docs.google.com/document/d/1nHBPqPJMfjfIYPM7Lq5DOQcpgsyJqxCyknAwGIVdd_M/edit#';
+var monitoringUrl = 'monitoring'
+var settingUrl = 'settings';
+var versionUrl = 'version';
+var documentationUrl = 'https://docs.google.com/document/d/1nHBPqPJMfjfIYPM7Lq5DOQcpgsyJqxCyknAwGIVdd_M/edit#';
 
 Ext.onReady(function showWindow() {
 	
@@ -55,28 +57,28 @@ Ext.onReady(function showWindow() {
 	  			text:'Мониторинг',
 				icon:'resources/images/monitoring.png',
 	  			handler: function(){
-	  				Ext.getCmp('main').getEl().dom.src = 'monitoring';	
+	  				Ext.getCmp('main').getEl().dom.src = monitoringUrl;	
 	  			}
 			},
 			{
 	  			text:'Настройки',
 				icon:'resources/images/settings.png',
 	  			handler: function(){
-	  				Ext.getCmp('main').getEl().dom.src = 'settings';
+	  				Ext.getCmp('main').getEl().dom.src = settingUrl;
 	  			}
 			},
 			{
 	  			text:'Инструкция',
 	  			icon:'resources/images/instruction.png',
 	  			handler: function(){
-	  				Ext.getCmp('main').getEl().dom.src = documentationurl;
+	  				Ext.getCmp('main').getEl().dom.src = documentationUrl;
 	  			}
 			},
 			{
 	  			text:'Скачать',
 	  			icon:'resources/images/download.png',
 	  			handler: function(){
-	  				Ext.getCmp('main').getEl().dom.src = versionurl;
+	  				Ext.getCmp('main').getEl().dom.src = versionUrl;
 	  			}
 			},
 			{
@@ -106,7 +108,6 @@ Ext.onReady(function showWindow() {
     		}
     		
     	})
-		
 	}
 	
 	var main = Ext.create('Ext.panel.Panel', {

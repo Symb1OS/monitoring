@@ -66,7 +66,7 @@ Ext.onReady(function(){
 				dataIndex : 'size',
 				width : 100 ,
 				renderer: function(val){
-					return ((((val / 1000) / 1000).toFixed(2)) + 'Mb');
+					return ((val / 1000000).toFixed(2)) + 'Mb';
 				} 
 				
 			},{

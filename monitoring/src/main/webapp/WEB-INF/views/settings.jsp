@@ -150,7 +150,7 @@ var passwordPanel = Ext.create('Ext.panel.Panel', {
 	            		Ext.toast(message);
 	        		},
 	        		failure: function(response) {
-	            		Ext.Msg.alert('Ошибка', 'Внутрення ошибка'); 
+	            		Ext.Msg.alert('Ошибка', 'Внутренняя ошибка'); 
 	        		}
 	        	})
 				
