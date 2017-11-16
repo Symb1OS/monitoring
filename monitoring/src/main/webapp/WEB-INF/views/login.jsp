@@ -65,6 +65,7 @@ Ext.onReady(function(){
 		        }		  
 		    }]
 		 }]
+		 
 	}); 
 	
 	function submit(){

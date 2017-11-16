@@ -109,28 +109,37 @@ Ext.onReady(function showWindow() {
     		
     	})
 	}
-	
-	var main = Ext.create('Ext.panel.Panel', {
-		xtype : 'form',
+
+	 var main = Ext.create('Ext.panel.Panel', {
 		region : 'center',
-		width : 300,
-		minSize : 300,
-		maxSize : 300,
-		split : false,
 		frame: true,
 		bodyStyle : {
 			'padding' : '5px'
 		},
+		
 		items : [{
-        	xtype: 'component',
+        	xtype: 'box',
         	id: 'main',
-        	autoEl: {
+        	        	
+         	autoEl: {
             	tag: 'iframe',
             	style: 'height: 100%; width: 100%; border: none',
             	src: 'settings'
-        	}
-    	}]
-	});
+        	}  
+        	
+    	}],
+    	
+    	listeners: {
+    		afterrender : function(){
+    			Ext.getCmp('main').el.dom.onload = function(){
+    				var url = window.frames[0].document.URL;
+    				if(url.indexOf('login') != -1){
+    					location.href = 'login'
+    				}
+    			}
+    		}
+    	}  
+	}); 
 	
 	var viewport = Ext.create('Ext.container.Viewport', {
 		layout : 'border',
