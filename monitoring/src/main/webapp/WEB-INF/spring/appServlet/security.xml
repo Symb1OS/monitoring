@@ -8,13 +8,15 @@
 	
 	<http auto-config="true" use-expressions="true">
 		
-		<headers >
+	 	<headers >
 			<frame-options policy="SAMEORIGIN"/>
-		</headers>
+		</headers> 
 		
 		<intercept-url pattern="/app" access="hasRole('ROLE_USER')" />
 		<intercept-url pattern="/monitoring" access="hasRole('ROLE_USER')" />
 		<intercept-url pattern="/settings/**" access="hasRole('ROLE_USER')" />
+		<intercept-url pattern="/version/**" access="hasRole('ROLE_USER')" />
+		<intercept-url pattern="/payment/**" access="hasRole('ROLE_USER')" />
 		
 		<intercept-url pattern="/user/**" access="hasRole('ROLE_ADMIN')" />
 		

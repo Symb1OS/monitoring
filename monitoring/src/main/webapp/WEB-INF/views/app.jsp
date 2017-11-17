@@ -21,6 +21,7 @@ var defaultUrl = 'status';
 var monitoringUrl = 'monitoring'
 var settingUrl = 'settings';
 var versionUrl = 'version';
+var paymentUrl = 'payment';
 var documentationUrl = 'https://docs.google.com/document/d/1nHBPqPJMfjfIYPM7Lq5DOQcpgsyJqxCyknAwGIVdd_M/edit#';
 
 Ext.onReady(function showWindow() {
@@ -80,6 +81,13 @@ Ext.onReady(function showWindow() {
 	  			handler: function(){
 	  				Ext.getCmp('main').getEl().dom.src = versionUrl;
 	  			}
+			},
+			{
+				text: 'Оплата',
+				icon: 'resources/images/payment.png',
+				handler: function(){
+					Ext.getCmp('main').getEl().dom.src = paymentUrl;	
+				}
 			},
 			{
 	  			text:'Выйти',

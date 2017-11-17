@@ -68,8 +68,8 @@ public class ActionEndPoint {
     }
     
     @OnError
-    public void error(Throwable t) {
-    	t.printStackTrace();
+    public void error(Session session, Throwable t) {
+    	logger.error("Exception " + t);
     }
     
     @RequestMapping("/action")
