@@ -1,5 +1,6 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@page contentType="text/html; charset=UTF-8"%>
+
 <%@page session="true"%>
 
 <html>
@@ -19,7 +20,7 @@ Ext.onReady(function(){
 	
 	Ext.define('versionModel', {
 		extend : 'Ext.data.Model',
-		fields : [ 'name', 'type', 'size']
+		fields : [ 'name', 'type', 'size', 'pathnote']
 	});
 	
 	var versionStore = Ext.create('Ext.data.Store', {
@@ -55,7 +56,7 @@ Ext.onReady(function(){
 				text : 'Версия',
 				sortable: true,
 				dataIndex : 'name',
-				width : 200,
+				width : 300,
 			},{
 				hidden: true,
 				text : 'Тип',
@@ -95,7 +96,14 @@ Ext.onReady(function(){
 				}]
 			
 			}]
-		}
+		},
+		
+		plugins: [{
+	        ptype: 'rowexpander',
+	        rowBodyTpl : new Ext.XTemplate(
+	        	'{pathnote}'
+	        )
+		}]
 	
 	});
 	
