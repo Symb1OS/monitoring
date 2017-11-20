@@ -6,7 +6,7 @@
 	<artifactId>monitoring</artifactId>
 	<name>monitoring</name>
 	<packaging>war</packaging>
-	<version>1.0.0</version>
+	<version>1.0.1</version>
 	<properties>
 		<org.springframework-version>4.0.3.RELEASE</org.springframework-version>
 		<spring.security.version>3.2.3.RELEASE</spring.security.version>
@@ -232,7 +232,7 @@
 		  
 	</dependencies>
     <build>
-   	 <finalName>monitoring</finalName>
+   	 <finalName>monitoring-${project.version}</finalName>
         <plugins>
         
 		    <plugin>
