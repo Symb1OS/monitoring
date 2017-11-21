@@ -17,6 +17,7 @@
 		<intercept-url pattern="/settings/**" access="hasRole('ROLE_USER')" />
 		<intercept-url pattern="/version/**" access="hasRole('ROLE_USER')" />
 		<intercept-url pattern="/payment/**" access="hasRole('ROLE_USER')" />
+		<intercept-url pattern="/tracker/**" access="hasRole('ROLE_USER')" />
 		
 		<intercept-url pattern="/user/**" access="hasRole('ROLE_ADMIN')" />
 		

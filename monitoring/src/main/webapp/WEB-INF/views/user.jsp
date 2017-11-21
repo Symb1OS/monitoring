@@ -75,7 +75,8 @@
 				autoCancel : false
 			});
 
-				var userGrid = Ext.create('Ext.grid.Panel', {
+				
+			var userGrid = Ext.create('Ext.grid.Panel', {
 				id : 'userGrid',
 				store : userStore,
 				region: 'center',

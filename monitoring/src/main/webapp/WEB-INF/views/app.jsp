@@ -22,6 +22,7 @@ var monitoringUrl = 'monitoring'
 var settingUrl = 'settings';
 var versionUrl = 'version';
 var paymentUrl = 'payment';
+var bugtrackerUrl = 'tracker'
 var documentationUrl = 'https://docs.google.com/document/d/1nHBPqPJMfjfIYPM7Lq5DOQcpgsyJqxCyknAwGIVdd_M/edit#';
 
 Ext.onReady(function showWindow() {
@@ -87,6 +88,13 @@ Ext.onReady(function showWindow() {
 				icon: 'resources/images/payment.png',
 				handler: function(){
 					Ext.getCmp('main').getEl().dom.src = paymentUrl;	
+				}
+			},
+			{
+				text: 'Баг-трекер',
+				icon: 'resources/images/bugtracker.png',
+				handler: function(){
+					Ext.getCmp('main').getEl().dom.src = bugtrackerUrl;	
 				}
 			},
 			{

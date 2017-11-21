@@ -39,5 +39,5 @@
 	
 	<beans:bean id="userService" class="ru.namibios.monitoring.web.UserService" />
 	
-	
+	<beans:bean id="trackerservice" class="ru.namibios.monitoring.web.TrackerService" />
 </beans:beans>
