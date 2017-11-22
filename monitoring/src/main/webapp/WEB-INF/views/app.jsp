@@ -22,7 +22,8 @@ var monitoringUrl = 'monitoring'
 var settingUrl = 'settings';
 var versionUrl = 'version';
 var paymentUrl = 'payment';
-var bugtrackerUrl = 'tracker'
+var bugtrackerUrl = 'tracker';
+var chatUrl = 'chat';
 var documentationUrl = 'https://docs.google.com/document/d/1nHBPqPJMfjfIYPM7Lq5DOQcpgsyJqxCyknAwGIVdd_M/edit#';
 
 Ext.onReady(function showWindow() {
@@ -96,8 +97,13 @@ Ext.onReady(function showWindow() {
 				handler: function(){
 					Ext.getCmp('main').getEl().dom.src = bugtrackerUrl;	
 				}
-			},
-			{
+			},{
+				text: 'Связь',
+				icon: 'resources/images/chat.png',
+				handler: function(){
+					Ext.getCmp('main').getEl().dom.src = chatUrl;
+				}
+			},{
 	  			text:'Выйти',
 	  			icon:'resources/images/logout.png',
 	  			handler: function(){

@@ -1,4 +1,4 @@
-package ru.namibios.monitoring.websocket;
+package ru.namibios.monitoring.websocket.chat;
 
 import java.io.IOException;
 
@@ -6,10 +6,9 @@ import javax.websocket.DecodeException;
 import javax.websocket.Decoder;
 import javax.websocket.EndpointConfig;
 
-import ru.namibios.monitoring.model.Action;
 import ru.namibios.monitoring.utils.JSON;
 
-public class ActionDecoder implements Decoder.Text<Action>{
+public class MessageDecoder implements Decoder.Text<Message>{
 
 	@Override
 	public void init(EndpointConfig config) {
@@ -24,12 +23,13 @@ public class ActionDecoder implements Decoder.Text<Action>{
 	}
 
 	@Override
-	public Action decode(String s) throws DecodeException {
+	public Message decode(String s) throws DecodeException {
 		try {
-			return JSON.getInstance().readValue(s, Action.class);
+			return JSON.getInstance().readValue(s, Message.class);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		
 		return null;
 	}
 
