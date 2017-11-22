@@ -237,6 +237,7 @@ Ext.onReady(function(){
             buttons: [
             	{
             		text: 'Сохранить',
+            		icon : 'resources/images/save.png',
             		handler: function(){
             			Ext.getCmp('editform').submit({
             				url: 'tracker/issues/update',
@@ -259,6 +260,7 @@ Ext.onReady(function(){
             	},
             	{
             		text: 'Отмена',
+            		icon : 'resources/images/cancel.png',
             		handler: function(){
             			editIssue.hide();
             		}
@@ -282,76 +284,80 @@ Ext.onReady(function(){
         closeAction: 'method-hide',
         width: 500,
         height: 350,
-       	
-    	bodyStyle : {
-			'padding' : '5px'
-		},
-		
-		defaults:{
-			labelWidth: 100,
-			width: '100%',
-			allowBlank: false
-		},
-		
-        items: [{
-        	xtype: 'textfield',
-        	id: 'issuename',
-        	fieldLabel: 'Название'
-        },{
-        	xtype: 'combo',
-        	id: 'issuetype',
-        	fieldLabel: 'Тип',
-        	store: typeStore,
-        	forceSelection : true,
-            displayField: 'name',
-            valueField: 'id',
-        },{
-        	xtype: 'textareafield',
-        	id: 'issuedescription',
-        	fieldLabel: 'Описание',
-        	height: 200
-        	
-        }],
-        
-        buttons: [{
-        	text: 'Сохранить',
-        	handler : function(){
-
-        		Ext.Ajax.request({
-	           		url: 'tracker/issues/add',
-	           		method: 'POST', 
-	           		params: {
-	           			"${_csrf.parameterName}" : "${_csrf.token}",
-	           			
-	           			name: Ext.getCmp('issuename').getValue(),
-	            		type: Ext.getCmp('issuetype').getValue(),
-	            		description : Ext.getCmp('issuedescription').getValue()
-	                	
-	            	},
-	            	success: function(response){
-	            		Ext.toast("Задача создана")
-	            		Ext.getCmp('issueWindow').hide();
-	            		trackerStore.reload();
-	        		},
-	        		failure: function(response) {
-	            		Ext.Msg.alert('Ошибка', 'Внутрення ошибка'); 
-	        		}
-	        	})
-        		
-        	}
-        },{
-        	text: 'Отмена',
-        	handler: function(){
-        		Ext.getCmp('issueWindow').hide();
-        	}
-        }
-        ],
+       	items:[{
+       		xtype: 'form',
+       		id: 'createform',
+       		
+       		bodyStyle : {
+    			'padding' : '5px'
+    		},
+    		
+    		defaults:{
+    			labelWidth: 100,
+    			width: '100%',
+    			allowBlank: false
+    		},
+    		
+            items: [{
+            	xtype: 'textfield',
+            	name: 'name',
+            	fieldLabel: 'Название'
+            },{
+            	xtype: 'combo',
+            	name: 'type',
+            	fieldLabel: 'Тип',
+            	store: typeStore,
+            	forceSelection : true,
+                displayField: 'name',
+                valueField: 'id',
+            },{
+            	xtype: 'textareafield',
+            	name: 'description',
+            	fieldLabel: 'Описание',
+            	height: 200
+            	
+            }],
+            
+            buttons: [{
+            	text: 'Сохранить',
+            	icon : 'resources/images/save.png',
+            	handler : function(){
+					var form = Ext.getCmp('createform'); 
+            		if (form.isValid()){
+            			form.submit({
+            				url: 'tracker/issues/add',
+            				method: 'POST',
+            				waitMsg: 'Пожалуйста подождите..',
+            				params: {
+            					"${_csrf.parameterName}" : "${_csrf.token}",
+            				},
+            				success: function(response){
+        	            		Ext.toast("Задача создана")
+        	            		Ext.getCmp('issueWindow').hide();
+        	            		trackerStore.reload();
+        	        		},
+        	        		failure: function(response) {
+        	            		Ext.Msg.alert('Ошибка', 'Внутрення ошибка'); 
+        	        		}
+            			})
+            		} else{
+            			Ext.Msg.alert('Внимание', 'Заполните все параметры, после чего повторите попытку')
+            		}
+            	}
+            },{
+            	text: 'Отмена',
+            	icon : 'resources/images/cancel.png',
+            	handler: function(){
+            		Ext.getCmp('issueWindow').hide();
+            	}
+            }
+            ]
+       	}]
+    	,
         
         listeners: {
         	hide: function(){
-        		Ext.getCmp('issuename').setValue(''),
-        		Ext.getCmp('issuetype').setValue(''),
-        		Ext.getCmp('issuedescription').setValue('')
+        		Ext.getCmp('createform').reset();
         	}
         }
 	})

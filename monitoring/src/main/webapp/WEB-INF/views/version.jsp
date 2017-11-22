@@ -41,6 +41,7 @@ Ext.onReady(function(){
 	
 	var versionGrid = Ext.create('Ext.grid.Panel', {
 		title: 'Версии',
+		icon : 'resources/images/version.png',
 		id : 'versionGrid',
 		store : versionStore,
 		region: 'center',

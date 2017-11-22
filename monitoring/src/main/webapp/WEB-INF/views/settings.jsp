@@ -21,6 +21,7 @@ Ext.onReady(function(){
 	
 var hashPanel = Ext.create('Ext.form.Panel', {
 	title: 'Ключ продукта',
+	icon : 'resources/images/licence.png',
 	height: 200,
 	defaults:{
 		width: 500,
@@ -50,6 +51,7 @@ var hashPanel = Ext.create('Ext.form.Panel', {
 	buttons : [
 		{
 			text: 'Сохранить',
+			icon : 'resources/images/save.png',
 			handler: function(){
 				Ext.Ajax.request({
 	           		url: 'settings/changeUrlMonitoring',
@@ -97,6 +99,7 @@ hashPanel.show();
 
 var passwordPanel = Ext.create('Ext.panel.Panel', {
 	title: 'Смена пароля',
+	icon : 'resources/images/password.png',
 	height: 200,
 	defaults:{
 		inputType: 'password',
@@ -129,6 +132,7 @@ var passwordPanel = Ext.create('Ext.panel.Panel', {
 	buttons:[
 		{
 			text: 'Сохранить',
+			icon : 'resources/images/save.png',
 			handler: function(){
 				Ext.Ajax.request({
 	           		url: 'settings/changePassword',
