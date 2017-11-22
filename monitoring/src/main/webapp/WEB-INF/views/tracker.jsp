@@ -148,7 +148,7 @@ Ext.onReady(function(){
 		}],
 
 		listeners : {
-			 select: function(dv, record, item, index, e) {
+			 rowclick: function(dv, record, item, index, e) {
 				
 			 	Ext.getCmp('editform').load({
         			url: 'tracker/issues/get',
