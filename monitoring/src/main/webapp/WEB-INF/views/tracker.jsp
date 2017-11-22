@@ -148,7 +148,7 @@ Ext.onReady(function(){
 		}],
 
 		listeners : {
-			 itemdblclick: function(dv, record, item, index, e) {
+			 select: function(dv, record, item, index, e) {
 				
 			 	Ext.getCmp('editform').load({
         			url: 'tracker/issues/get',
@@ -178,6 +178,8 @@ Ext.onReady(function(){
 	
 	 var editIssue = Ext.create('Ext.Window', {
         title: 'Просмотр и редактирование',
+        resizable : true,
+	 	draggable : false,
         icon : 'resources/images/edit-notes.png',
         closeAction: 'method-hide',
         width: 500,
@@ -280,7 +282,8 @@ Ext.onReady(function(){
 		id: 'issueWindow',
 		title: 'Новая задача',
 		icon : 'resources/images/add-bug.png',
-		resizible: false,
+		resizable : false,
+		draggable : false,
         closeAction: 'method-hide',
         width: 500,
         height: 350,
