@@ -7,7 +7,7 @@
 							http://www.springframework.org/schema/task
 							http://www.springframework.org/schema/task/spring-task-3.0.xsd"	>
 
-	<bean id="autoValidDate" class="ru.namibios.monitoring.web.Sheduler" />
+	<bean id="autoValidDate" class="ru.namibios.monitoring.web.controller.Sheduler" />
    
     <task:annotation-driven/>
     <task:scheduler id="myScheduler" pool-size="10" />   

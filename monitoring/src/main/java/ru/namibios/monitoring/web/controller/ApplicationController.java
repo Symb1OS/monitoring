@@ -1,4 +1,4 @@
-package ru.namibios.monitoring.web;
+package ru.namibios.monitoring.web.controller;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -15,6 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import ru.namibios.monitoring.model.User;
 import ru.namibios.monitoring.utils.ImageUtils;
+import ru.namibios.monitoring.web.service.Service;
 
 
 @Controller

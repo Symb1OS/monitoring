@@ -1,10 +1,10 @@
 package ru.namibios.monitoring.websocket.chat;
 
-import java.sql.Date;
+import java.util.Date;
 
 public class Message {
 
-	private Date date;
+	private Date time;
 
 	private String from;
 
@@ -12,12 +12,12 @@ public class Message {
 
 	private String data;
 
-	public Date getDate() {
-		return date;
+	public Date getTime() {
+		return time;
 	}
 
-	public void setDate(Date date) {
-		this.date = date;
+	public void setTime(Date time) {
+		this.time = time;
 	}
 
 	public String getFrom() {
@@ -46,7 +46,6 @@ public class Message {
 
 	@Override
 	public String toString() {
-		return "Message [date=" + date + ", from=" + from + ", to=" + to + ", data=" + data + "]";
+		return "Message [time=" + time + ", from=" + from + ", to=" + to + ", data=" + data + "]";
 	}
-
 }

@@ -17,15 +17,15 @@
 
 Ext.onReady(function(){	
 	
-	var user = "${user}";
-	var socket = new WebSocket("ws://localhost:8080/monitoring/chat/" + user);
+	var to = "symbios";
+	var socket = new WebSocket("ws://localhost:8080/monitoring/chat/${user}");
 	
 	socket.onopen = function() {
 		chatPanel.update({
-    		time : Ext.Date.format(new Date(), 'H:i:s'),
+    		time : new Date(),
     		from : "${user}",
-    		to   : "${user}",
-    		message : 'Пользователь присоединился к чату'	
+    		to   : to,
+    		data : 'Пользователь присоединился к чату'	
     	});
 	};
 
@@ -37,17 +37,62 @@ Ext.onReady(function(){
 
 	socket.onmessage = function(event) {
 		console.log('Получено сообщение');
-		console.log('event ' + evemt);
+		var message = Ext.JSON.decode(event.data);
+		updateChat(message);
 	};
 
 	socket.onerror = function(error) {
 	  alert("Ошибка " + error.message);
 	};
 	
+	var userPanel = Ext.create('Ext.panel.Panel', {
+		title: 'Пользователи',
+		region: 'east',
+		width: '20%',
+	    margin: '0 0 0 5',
+		bodyStyle: {
+			'background':'white'
+		},
+		
+		items: [{
+			xtype: 'treepanel',
+			width: '100%',
+			height: '100%',
+	        rootVisible: false,
+	        lines: false,
+	        store: Ext.create('Ext.data.TreeStore', {
+        	 
+	        	proxy: {
+                    type: 'ajax',
+                    url: 'chat/users'
+                },
+	                
+	        	root: {
+	                expanded: true,
+	                lines: false
+	        	},
+	        	
+	        	listeners: {
+	        		load: function(records, successful, operation, node){
+	        			console.log
+	        		}
+	        	}
+	        }),
+	        
+	        listeners: {
+	        	selectionchange: function(selModel, selection) {
+	        		to = selModel.getSelection()[0].get('text');
+	        		console.log('to ' + to);
+	        		
+	        	}
+	        }
+		}]
+	});
+	
 	var chatPanel = Ext.create('Ext.panel.Panel', {
 		title: 'Написать разработчику',
-		height : '50%',
 		layout: 'border',
+		region: 'center',
 		collapsible : false,
 		scrollable: true,
 		
@@ -56,7 +101,14 @@ Ext.onReady(function(){
 			'background':'white'
 		},
 		
-	    tpl: '[{time}] <span style="color:green">{from}</span> : {message} <br>',
+	    tpl: new Ext.XTemplate( 
+	    		'[{[this.formatDate(values.time)]}] <span style="color:green">{from}</span> : {data} <br>',
+	    		{
+	    			formatDate : function(date){
+	    				return Ext.Date.format(date, 'H:i:s')
+	    			}
+	    		}
+   		),
        	tplWriteMode : 'append',
 		
 		dockedItems: [{
@@ -88,23 +140,23 @@ Ext.onReady(function(){
 	    }]
 	});
 	
-	function updateChat(data){
-		console.log('data ' + data);
+	function updateChat(message){
+		console.log("Message: " + Ext.JSON.encode(message));
 		chatPanel.update({
-    		time : Ext.Date.format(new Date(), 'H:i:s'),
-    		from : 'symbios',
-    		to   : 'symbios',
-    		message : message.getValue()	
+    		time : new Date(),
+    		from : message.from,
+    		to   : message.to,
+    		data : message.data
     	});
 	}
 	
     function sendMessage(){
     	var message = Ext.getCmp('message');
     	var jsonMessage = {
-        		time : Ext.Date.format(new Date(), 'H:i:s'),
-        		from : 'symbios',
-        		to   : 'symbios',
-        		message : message.getValue()	
+        		time : new Date(),
+        		from : '${user}',
+        		to   : to,
+        		data : message.getValue()	
        	};
     	message.setValue();
     	
@@ -113,16 +165,17 @@ Ext.onReady(function(){
     	
     }
     
+    function loadHistory(){
+    	console.log('load history from ' + to);
+    	chatPanel.update({
+    		time: new Date(),
+    		data: 'Диалог с ' + to
+    	})
+    }
+    
 	var viewport = Ext.create('Ext.container.Viewport', {
-		layout : {
-			type : 'vbox',
-			align : 'stretch',
-			pack : 'start'
-		},
-		defaults : {
-			margin : '0 0 10 0'
-		},
-		items : [ chatPanel ] 
+		layout: 'border',
+		items : [ chatPanel , userPanel] 
 	})
 	
 })

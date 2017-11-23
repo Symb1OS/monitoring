@@ -1,4 +1,4 @@
-package ru.namibios.monitoring.web;
+package ru.namibios.monitoring.web.service;
 
 import java.io.File;
 import java.util.Map;

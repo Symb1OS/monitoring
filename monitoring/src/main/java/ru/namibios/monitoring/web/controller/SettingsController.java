@@ -1,4 +1,4 @@
-package ru.namibios.monitoring.web;
+package ru.namibios.monitoring.web.controller;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import ru.namibios.monitoring.model.User;
+import ru.namibios.monitoring.web.service.Service;
 
 
 @Controller
