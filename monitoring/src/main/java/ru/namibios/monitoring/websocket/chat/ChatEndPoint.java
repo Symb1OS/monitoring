@@ -38,7 +38,6 @@ public class ChatEndPoint {
 
 	@OnOpen
 	public void onOpen(@PathParam("user") String user, Session session) {
-		
 		this.user = user;
 		this.session = session;
 		
