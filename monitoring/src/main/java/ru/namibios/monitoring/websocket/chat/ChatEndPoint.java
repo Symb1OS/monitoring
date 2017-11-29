@@ -14,50 +14,56 @@ import javax.websocket.server.PathParam;
 import javax.websocket.server.ServerEndpoint;
 
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.socket.server.standard.SpringConfigurator;
+
+import ru.namibios.monitoring.web.service.SocketService;
 
 @ServerEndpoint(value="/chat/{user}",
 				decoders=MessageDecoder.class,
-				encoders=MessageEncoder.class)
+				encoders=MessageEncoder.class,
+				configurator=SpringConfigurator.class)
 public class ChatEndPoint {
 	
 	private static final Logger logger = Logger.getLogger(ChatEndPoint.class); 
 	
-	private static final Set<ChatEndPoint> clients = new CopyOnWriteArraySet<>();
+	private static final Set<Session> clients = new CopyOnWriteArraySet<>();
 	
-	private String user;
+	private SocketService socketService;
 	
-	private Session session;
-	
-	public String getUser() {
-		return user;
-	}
-
-	public Session getSession() {
-		return session;
+	@Autowired
+	public ChatEndPoint(SocketService socketService) {
+		this.socketService = socketService;
 	}
 
 	@OnOpen
 	public void onOpen(@PathParam("user") String user, Session session) {
-		this.user = user;
-		this.session = session;
+
+		session.getUserProperties().put("user", user);
 		
 		logger.info("Connetion open for " + user);
 		
-		clients.add(this);
-		
+		clients.add(session);
+		logger.info("Sessions " + clients.size());
 	}
 	
 	@OnMessage
 	public void onMessage(Message message, Session session) {
-		logger.info("Message from [" + user + "] message: " + message );
+		logger.info("Message from [" + session.getUserProperties().get("user") + "] message: " + message );
+		
 		broadcast(message);
+		saveHistory(message);
 	}
 	
+	private void saveHistory(Message message) {
+		socketService.saveHistory(message);
+	}
+
 	@OnClose
 	public void onClose(Session session) {
-		logger.info("Close connection for " + user);
+		logger.info("Close connection for " + session.getUserProperties().get("user"));
 		
-		clients.remove(this);
+		clients.remove(session);
 	}
 	
 	@OnError
@@ -68,20 +74,21 @@ public class ChatEndPoint {
 	
 	public void broadcast(Message message) {
 		
-		clients.forEach(point -> {
-			String user = point.getUser();
-			if (user.equals(message.getTo())) {
+		clients.forEach((session) ->{
+			String user = (String) session.getUserProperties().get("user");
+			if(user.equals(message.getTo())) {
+				
 				try {
+					logger.info("Sended message " + message);
 					
-					point.getSession().getBasicRemote().sendObject(message);
+					session.getBasicRemote().sendObject(message);
 					
 				} catch (IOException | EncodeException e) {
 					e.printStackTrace();
 				}
+				
 			}
-			
 		});
 			
 	}
-
 }

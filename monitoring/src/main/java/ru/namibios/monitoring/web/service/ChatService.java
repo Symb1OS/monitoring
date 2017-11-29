@@ -12,13 +12,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.ResultSetExtractor;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Service;
 
 import ru.namibios.monitoring.model.Children;
 import ru.namibios.monitoring.model.User;
-import ru.namibios.monitoring.websocket.chat.Message;
 
 @Service
 public class ChatService {
@@ -33,13 +34,14 @@ public class ChatService {
 	
 	private static final String SQL_SELECT_HISTORY = 
 			"select time, fromuser, touser, data from fishing.chat "
-		  + "where fromuser = ? and touser = ?"; 
-	
-	private static final String SQL_SAVE_HISTORY = 
-			"insert into fishing.chat(fromuser, touser, data) values (?, ?, ?)";
+		  + "where fromuser  = :from and touser = :to "
+		  + "   or fromuser  = :to and touser = :from"; 
 	
 	@Autowired
 	private JdbcTemplate jdbc;
+	
+	@Autowired
+	private NamedParameterJdbcTemplate njdbc;
 	
 	public List<Children> getUsers(Collection<? extends GrantedAuthority> auth) {
 				
@@ -67,7 +69,11 @@ public class ChatService {
 	
 	public List<Map<String, Object>> getHistory(String from, String to ){
 	
-		return jdbc.query(SQL_SELECT_HISTORY, new Object[] {from , to}, new ResultSetExtractor<List<Map<String, Object>>>(){
+		MapSqlParameterSource param = new MapSqlParameterSource();
+		param.addValue("from", from);
+		param.addValue("to", to);
+		
+		return njdbc.query(SQL_SELECT_HISTORY, param, new ResultSetExtractor<List<Map<String, Object>>>(){
 
 			List<Map<String, Object>> list = new ArrayList<>();
 			@Override
@@ -87,11 +93,5 @@ public class ChatService {
 			}
 			
 		});
-		
-	}
-	
-	public void saveHistory(Message message) {
-		jdbc.update(SQL_SAVE_HISTORY, message.getFrom(), message.getTo(), message.getData());
-		
 	}
 }

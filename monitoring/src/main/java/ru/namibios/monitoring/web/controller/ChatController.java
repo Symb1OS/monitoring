@@ -22,7 +22,6 @@ import ru.namibios.monitoring.model.Children;
 import ru.namibios.monitoring.model.TreeUser;
 import ru.namibios.monitoring.model.User;
 import ru.namibios.monitoring.web.service.ChatService;
-import ru.namibios.monitoring.websocket.chat.Message;
 
 @Controller
 @RequestMapping("/chat")
@@ -66,7 +65,7 @@ public class ChatController {
 		return chatService.getHistory(username, user.getName());
 	}
 	
-	@RequestMapping(value = "/history/save", method = RequestMethod.GET)
+	/*@RequestMapping(value = "/history/save", method = RequestMethod.GET)
 	public void history(
 			@PathParam("from") String from,
 			@PathParam("to") String to,
@@ -78,6 +77,6 @@ public class ChatController {
 		message.setFrom(from);
 		
 		chatService.saveHistory(message);
-	}
+	}*/
 	
 }

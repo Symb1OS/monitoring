@@ -37,6 +37,10 @@ Ext.onReady(function(){
 		var message = Ext.JSON.decode(event.data);
 		var tab = Ext.getCmp(message.from);
 		
+		console.log('new message')
+		console.log(message);
+		console.log(tab);
+		
 		if(typeof tab == 'undefined'){
 			tab = chatPanel.add(Ext.create('chat.panel',{
     			id: message.from,
@@ -51,10 +55,13 @@ Ext.onReady(function(){
 			to   : message.to,
 			data : message.data
 		});
-		
+	
 		var active = chatPanel.getActiveTab().getId();
 		if(typeof active == 'undefined' | active !== tab.getId()){
 			notify(tab)	
+		}else{
+			soundClick();
+			tab.getTargetEl().scroll('b', 100000, true);
 		}
 		
 	};
@@ -64,7 +71,7 @@ Ext.onReady(function(){
 	};
 	
 	function notify(tab){
-		tab.setIcon(newMessageIcon)
+		tab.setIcon(newMessageIcon);
 		soundClick();
 	}
 	
@@ -126,6 +133,7 @@ Ext.onReady(function(){
 		        		
 	        		}else{
 	        			chatPanel.setActiveTab(tabTo);
+	        			chatPanel.getTargetEl().scroll('b', 100000, true);
 	        		}
 	        		
 	        	}
@@ -180,29 +188,37 @@ Ext.onReady(function(){
     	message.setValue();
     	
     	chatPanel.update(jsonMessage);
+    	chatPanel.getTargetEl().scroll('b', 100000, true);
     	socket.send(Ext.JSON.encode(jsonMessage));
     	
     } 
     
-    function loadHistory(chatPanel){
-    	
+    function loadHistory(chattab){
+    	console.log('load history')
     	Ext.Ajax.request({
        		url: 'chat/history',
     	    method: 'GET', 
         	params: {
-            	username : to,
+            	username : chattab.getId(),
         	},
         	success: function(response){
         		json = Ext.JSON.decode(response.responseText);
+        		console.log(response);
         		for(var index = 0; index < json.length; index++){
+        			console.log(index);
         			var message = json[index];
-        			chatPanel.update({
+        			chattab.update({
         				time: new Date(message.time),
         				from: message.from,
         				to : message.to,
         				data: message.data
-        			})
+        			});
         		}
+        		
+        		if(chatPanel.getActiveTab().getId() == chattab.getId()){
+        			chattab.getTargetEl().scroll('b', 100000, true);
+        		}
+        			
     		},
     		failure: function(form, action) {
     			Ext.Msg.alert('Ошибка авторизации', 'Ошибка соединения с сервером');  
@@ -221,7 +237,6 @@ Ext.onReady(function(){
 		extend: 'Ext.panel.Panel',
 		scrollable: true,
         closable: false,
-        reference: 'chatpanel',
 		bodyPadding: 5,
 		bodyStyle: {
 			'background':'white'

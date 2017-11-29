@@ -12,4 +12,12 @@
 		<property name="password" value="pa55word" />
 	</bean>
 	
+	<bean id="socketService" class="ru.namibios.monitoring.web.service.SocketService" >
+		<property name="jdbc" ref="dataSource"></property>
+	</bean>
+	
+	<bean id="chat" class="ru.namibios.monitoring.websocket.chat.ChatEndPoint">
+		<constructor-arg name="socketService" ref="socketService" ></constructor-arg>
+	</bean>
+		
 </beans>
