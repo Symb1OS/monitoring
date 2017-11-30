@@ -37,16 +37,14 @@ Ext.onReady(function(){
 		var message = Ext.JSON.decode(event.data);
 		var tab = Ext.getCmp(message.from);
 		
-		console.log('new message')
-		console.log(message);
-		console.log(tab);
-		
 		if(typeof tab == 'undefined'){
 			tab = chatPanel.add(Ext.create('chat.panel',{
     			id: message.from,
     			title: message.from,
     			icon: userIcon
     		}));
+			
+			chatPanel.setActiveTab(tab);
 		}
 		
 		tab.update({
@@ -55,14 +53,13 @@ Ext.onReady(function(){
 			to   : message.to,
 			data : message.data
 		});
-	
+
 		var active = chatPanel.getActiveTab().getId();
 		if(typeof active == 'undefined' | active !== tab.getId()){
-			notify(tab)	
-		}else{
-			soundClick();
-			tab.getTargetEl().scroll('b', 100000, true);
+			notify(tab);
 		}
+		
+		tab.getTargetEl().scroll('b', 100000, true);
 		
 	};
 
@@ -160,7 +157,6 @@ Ext.onReady(function(){
             
 			tabchange: function(newCard ,newTab) {
 				newTab.setIcon(userIcon);
-                
             }
             
         }
@@ -176,9 +172,9 @@ Ext.onReady(function(){
     	});
 	}
 	
-    function sendMessage(chatPanel){
-    	to = chatPanel.getId();
-    	var message = chatPanel.down('textfield');
+    function sendMessage(chattab){
+    	to = chattab.getId();
+    	var message = chattab.down('textfield');
     	var jsonMessage = {
         		time : new Date(),
         		from : '${user}',
@@ -187,14 +183,15 @@ Ext.onReady(function(){
        	};
     	message.setValue();
     	
-    	chatPanel.update(jsonMessage);
-    	chatPanel.getTargetEl().scroll('b', 100000, true);
+    	chattab.update(jsonMessage);
+    	chattab.getTargetEl().scroll('b', 100000, true);
     	socket.send(Ext.JSON.encode(jsonMessage));
     	
     } 
     
     function loadHistory(chattab){
     	console.log('load history')
+    	console.log(chattab);
     	Ext.Ajax.request({
        		url: 'chat/history',
     	    method: 'GET', 
@@ -203,9 +200,7 @@ Ext.onReady(function(){
         	},
         	success: function(response){
         		json = Ext.JSON.decode(response.responseText);
-        		console.log(response);
         		for(var index = 0; index < json.length; index++){
-        			console.log(index);
         			var message = json[index];
         			chattab.update({
         				time: new Date(message.time),
@@ -215,9 +210,7 @@ Ext.onReady(function(){
         			});
         		}
         		
-        		if(chatPanel.getActiveTab().getId() == chattab.getId()){
-        			chattab.getTargetEl().scroll('b', 100000, true);
-        		}
+       			chattab.getTargetEl().scroll('b', 100000, true);
         			
     		},
     		failure: function(form, action) {
@@ -273,6 +266,7 @@ Ext.onReady(function(){
 		        }, {
 		            xtype: 'button',
 		            width: '20%',
+		            icon: 'resources/images/send.png',
 		            text: 'Отправить',
 		            handler: function(){
 		            	var chatPanel = this.up('panel');

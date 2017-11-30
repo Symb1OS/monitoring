@@ -76,6 +76,7 @@ public class ChatService {
 		return njdbc.query(SQL_SELECT_HISTORY, param, new ResultSetExtractor<List<Map<String, Object>>>(){
 
 			List<Map<String, Object>> list = new ArrayList<>();
+			
 			@Override
 			public List<Map<String, Object>> extractData(ResultSet rs) throws SQLException, DataAccessException {
 				
