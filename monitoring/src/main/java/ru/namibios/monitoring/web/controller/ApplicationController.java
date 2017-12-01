@@ -28,6 +28,9 @@ public class ApplicationController {
 	public ModelAndView app() {
 	
 		ModelAndView mav = new ModelAndView();
+		
+		mav.addObject("isBlocked", service.isBlocked(new User().getName()));
+		
 		mav.setViewName("app");
 		
 		return mav;
