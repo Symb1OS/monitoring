@@ -1,4 +1,4 @@
-package ru.namibios.monitoring.websocket;
+package ru.namibios.monitoring.websocket.action;
 
 import java.io.IOException;
 import java.util.Set;

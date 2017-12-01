@@ -1,4 +1,4 @@
-package ru.namibios.monitoring.web;
+package ru.namibios.monitoring.web.service;
 
 import java.io.File;
 import java.util.Map;
@@ -14,7 +14,6 @@ public class Service {
 	@Autowired
 	private JdbcTemplate jdbc;
 	
-	
 	private static final String SQL_CURRENT_PASSWORD = "select COUNT(*) from fishing.users where username = ? and password = ?";
 	
 	private static final String SQL_UPDATE_PASSWORD = "update fishing.users SET password = ? where username = ?";
@@ -23,6 +22,8 @@ public class Service {
 
 	private static final String SQL_UPDATE_URL_MONITORING = "update fishing.users set url_monitoring = ? where username = ?";
 
+	private static final String SQL_SELECT_CHECK_BLOCK = "select case when date_valid < curdate() then 1 else 0 end as blocked from fishing.users where username = ?";
+	
 	private static final String SQL_UPDATE_EXPIRED_KEYS = "update fishing.users set enabled = 0 where date_valid < curdate()";
 	
 	public boolean checkOldPassword(String username, String oldPassword) {
@@ -61,5 +62,9 @@ public class Service {
 
 	public int disableExpiredLicence() {
 		return jdbc.update(SQL_UPDATE_EXPIRED_KEYS);
+	}
+
+	public boolean isBlocked(String username) {
+		return jdbc.queryForObject(SQL_SELECT_CHECK_BLOCK, Integer.class, username) == 1 ? true : false;
 	}
 }

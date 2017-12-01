@@ -1,4 +1,4 @@
-package ru.namibios.monitoring.web;
+package ru.namibios.monitoring.web.controller;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -20,6 +20,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import ru.namibios.monitoring.model.User;
 import ru.namibios.monitoring.utils.JSON;
+import ru.namibios.monitoring.web.service.TrackerService;
 
 @Controller
 @RequestMapping("/tracker")

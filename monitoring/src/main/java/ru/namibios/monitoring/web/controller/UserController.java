@@ -1,4 +1,4 @@
-package ru.namibios.monitoring.web;
+package ru.namibios.monitoring.web.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -24,6 +24,7 @@ import ru.namibios.monitoring.model.PasswordGenerator;
 import ru.namibios.monitoring.model.ShaEncoder;
 import ru.namibios.monitoring.model.TelegramNotification;
 import ru.namibios.monitoring.utils.JSON;
+import ru.namibios.monitoring.web.service.UserService;
 
 
 @Controller

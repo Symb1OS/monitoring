@@ -35,9 +35,12 @@
 		<beans:constructor-arg ref="dataSource"></beans:constructor-arg>
 	</beans:bean>
 
-	<beans:bean id="service" class="ru.namibios.monitoring.web.Service" />
+	<beans:bean id="service" class="ru.namibios.monitoring.web.service.Service" />
 	
-	<beans:bean id="userService" class="ru.namibios.monitoring.web.UserService" />
+	<beans:bean id="userService" class="ru.namibios.monitoring.web.service.UserService" />
 	
-	<beans:bean id="trackerservice" class="ru.namibios.monitoring.web.TrackerService" />
+	<beans:bean id="trackerservice" class="ru.namibios.monitoring.web.service.TrackerService" />
+	
+	<beans:bean id="chatService" class="ru.namibios.monitoring.web.service.ChatService" />
+	
 </beans:beans>
