@@ -6,7 +6,7 @@
 	<artifactId>monitoring</artifactId>
 	<name>monitoring</name>
 	<packaging>war</packaging>
-	<version>1.1.1</version>
+	<version>1.2.0</version>
 	<properties>
 		<org.springframework-version>4.0.3.RELEASE</org.springframework-version>
 		<spring.security.version>3.2.3.RELEASE</spring.security.version>

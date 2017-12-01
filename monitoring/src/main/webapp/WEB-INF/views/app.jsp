@@ -24,7 +24,7 @@ var versionUrl = 'version';
 var paymentUrl = 'payment';
 var bugtrackerUrl = 'tracker';
 var chatUrl = 'chat';
-var documentationUrl = 'https://docs.google.com/document/d/1nHBPqPJMfjfIYPM7Lq5DOQcpgsyJqxCyknAwGIVdd_M/edit#';
+var documentationUrl = 'https://docs.google.com/document/d/1DkkaUYzsAG57zADdlMZyV0jzGTR5s-Vo13wi64Z0TC8/edit#';
 
 Ext.onReady(function showWindow() {
 	var menu = Ext.create('Ext.panel.Panel', {
