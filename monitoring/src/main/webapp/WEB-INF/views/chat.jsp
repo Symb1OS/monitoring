@@ -21,7 +21,7 @@ Ext.onReady(function(){
 	var newMessageIcon = 'resources/images/new.png';
 	var to = "symbios";
 	
-	var socket = new WebSocket("ws://localhost:8080/monitoring/chat/${user}");
+	var socket = new WebSocket("ws://46.188.5.59:9090/monitoring/chat/${user}");
 	
 	socket.onopen = function() {
 		console.log('connection open');
