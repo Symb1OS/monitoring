@@ -8,6 +8,7 @@
 
 <link rel="shortcut icon" href="<c:url value="/resources/images/icon.png"/>">
 <link rel="stylesheet" type="text/css" href="<c:url value="/resources/ext6/build/classic/theme-neptune/resources/theme-neptune-all.css"/>">
+<link rel="stylesheet" type="text/css" href="<c:url value="/resources/style/image.css"/>">
 <script type="text/javascript" src="<c:url value="/resources/ext6/build/ext-all.js"/>"></script>
 <script type="text/javascript" src="<c:url value="/resources/ext6/build/classic/locale/locale-ru.js"/>"></script>
 </head>
@@ -25,7 +26,7 @@ Ext.onReady(function(){
 		region:'center',
 		title: 'Войти',
 		frame: true,
-		icon:'resources/images/login.png',
+		iconCls: 'icon-login',
 		layout: {
 	        type: 'vbox',   
 	        align: 'stretch',   
@@ -81,10 +82,16 @@ Ext.onReady(function(){
             	"${_csrf.parameterName}" : "${_csrf.token}"
         	},
         	success: function(response){
-        		location.href = 'app'
+        	 	var logStatus = Ext.JSON.decode(response.responseText);
+        		if(logStatus.success){
+        			location.href = 'app'	
+        		}else{
+        			Ext.Msg.alert('Ошибка авторизации',logStatus.errorMessage);
+        		} 
+        		
     		},
-    		failure: function(form, action) {
-    			Ext.Msg.alert('Ошибка авторизации', 'Ошибка соединения с сервером');  
+    		failure: function(reponse) {
+    			Ext.Msg.alert('Ошибка', 'Внутрення ошибка');
     		}
     		
     	})
@@ -98,10 +105,10 @@ Ext.onReady(function(){
 	            pack: 'center'
 	        },
 	        items : [loginPanel]
-	    });
+    });
 });
-</script>   
 
+</script>   
 
 </body>
 </html>

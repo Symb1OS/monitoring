@@ -8,6 +8,7 @@
 
 <link rel="shortcut icon" href="<c:url value="/resources/images/icon.png"/>">
 <link rel="stylesheet" type="text/css" href="<c:url value="/resources/ext6/build/classic/theme-neptune/resources/theme-neptune-all.css"/>">
+<link rel="stylesheet" type="text/css" href="<c:url value="/resources/style/image.css"/>">
 <script type="text/javascript" src="<c:url value="/resources/ext6/build/ext-all.js"/>"></script>
 <script type="text/javascript" src="<c:url value="/resources/ext6/build/classic/locale/locale-ru.js"/>"></script>
 </head>
@@ -33,7 +34,7 @@ Ext.onReady(function showWindow() {
 		width : 210,
 		minSize : 300,
 		maxSize : 300,
-		icon: 'resources/images/menu.png',
+		iconCls: 'icon-menu',
 		collapsible : true,
 		split : false,
 		
@@ -67,7 +68,7 @@ Ext.onReady(function showWindow() {
 		items : [
 			{
 	  			text:'Мониторинг',
-				icon:'resources/images/monitoring.png',
+				iconCls: 'icon-monitoring',
 				bind:{
 					hidden: '{hidden}'
 				},
@@ -77,14 +78,14 @@ Ext.onReady(function showWindow() {
 			},
 			{
 	  			text:'Настройки',
-				icon:'resources/images/settings.png',
+				iconCls: 'icon-settings',
 	  			handler: function(){
 	  				Ext.getCmp('main').getEl().dom.src = settingUrl;
 	  			}
 			},
 			{
 	  			text:'Инструкция',
-	  			icon:'resources/images/instruction.png',
+	  			iconCls: 'icon-instruction',
 	  			bind:{
 					hidden: '{hidden}'
 				},
@@ -94,7 +95,7 @@ Ext.onReady(function showWindow() {
 			},
 			{
 	  			text:'Скачать',
-	  			icon:'resources/images/download.png',
+	  			iconCls: 'icon-download',
 	  			bind:{
 					hidden: '{hidden}'
 				},
@@ -104,26 +105,26 @@ Ext.onReady(function showWindow() {
 			},
 			{
 				text: 'Оплата',
-				icon: 'resources/images/payment.png',
+				iconCls: 'icon-payment',
 				handler: function(){
 					Ext.getCmp('main').getEl().dom.src = paymentUrl;	
 				}
 			},
 			{
 				text: 'Баг-трекер',
-				icon: 'resources/images/bugtracker.png',
+				iconCls: 'icon-bugtracker',
 				handler: function(){
 					Ext.getCmp('main').getEl().dom.src = bugtrackerUrl;	
 				}
 			},{
 				text: 'Связь',
-				icon: 'resources/images/chat.png',
+				iconCls: 'icon-chat',
 				handler: function(){
 					Ext.getCmp('main').getEl().dom.src = chatUrl;
 				}
 			},{
 	  			text:'Выйти',
-	  			icon:'resources/images/logout.png',
+	  			iconCls: 'icon-logout',
 	  			handler: function(){
 	  				logout();
 	  			}

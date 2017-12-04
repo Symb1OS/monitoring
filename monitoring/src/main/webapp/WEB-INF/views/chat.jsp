@@ -8,6 +8,7 @@
 <title>Обратная связь</title>
 <link rel="shortcut icon" 	href="<c:url value="/resources/images/icon.png"/>">
 <link rel="stylesheet" type="text/css" href="<c:url value="/resources/ext6/build/classic/theme-neptune/resources/theme-neptune-all.css"/>">
+<link rel="stylesheet" type="text/css" href="<c:url value="/resources/style/image.css"/>">
 <script type="text/javascript" 	src="<c:url value="/resources/ext6/build/ext-all.js"/>"></script>
 <script type="text/javascript" 	src="<c:url value="/resources/ext6/build/classic/locale/locale-ru.js"/>"></script>
 </head>
@@ -266,7 +267,7 @@ Ext.onReady(function(){
 		        }, {
 		            xtype: 'button',
 		            width: '20%',
-		            icon: 'resources/images/send.png',
+		            iconCls: 'icon-send',
 		            text: 'Отправить',
 		            handler: function(){
 		            	var chatPanel = this.up('panel');

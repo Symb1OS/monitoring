@@ -8,12 +8,11 @@
 
 <link rel="shortcut icon" href="<c:url value="/resources/images/icon.png"/>">
 <link rel="stylesheet" type="text/css" href="<c:url value="/resources/ext6/build/classic/theme-neptune/resources/theme-neptune-all.css"/>">
+<link rel="stylesheet" type="text/css" href="<c:url value="/resources/style/image.css"/>">
 <script type="text/javascript" src="<c:url value="/resources/ext6/build/ext-all.js"/>"></script>
 <script type="text/javascript" src="<c:url value="/resources/ext6/build/classic/locale/locale-ru.js"/>"></script>
 </head>
 <body>
-
-
 
 <script type="text/javascript">
 
@@ -21,7 +20,7 @@ Ext.onReady(function(){
 	
 var hashPanel = Ext.create('Ext.form.Panel', {
 	title: 'Ключ продукта',
-	icon : 'resources/images/licence.png',
+	iconCls: 'icon-licence',
 	height: 200,
 	defaults:{
 		width: 500,
@@ -99,7 +98,7 @@ hashPanel.show();
 
 var passwordPanel = Ext.create('Ext.panel.Panel', {
 	title: 'Смена пароля',
-	icon : 'resources/images/password.png',
+	iconCls: 'icon-password',
 	height: 200,
 	defaults:{
 		inputType: 'password',
@@ -132,7 +131,7 @@ var passwordPanel = Ext.create('Ext.panel.Panel', {
 	buttons:[
 		{
 			text: 'Сохранить',
-			icon : 'resources/images/save.png',
+			iconCls: 'icon-save',
 			handler: function(){
 				Ext.Ajax.request({
 	           		url: 'settings/changePassword',

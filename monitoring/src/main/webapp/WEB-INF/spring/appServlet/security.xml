@@ -6,6 +6,9 @@
 	http://www.springframework.org/schema/security
 	http://www.springframework.org/schema/security/spring-security-3.2.xsd">
 	
+	<beans:bean id="authSuccess" class="ru.namibios.monitoring.web.controller.security.AuthentificationSuccess" />
+	<beans:bean id="authFailure" class="ru.namibios.monitoring.web.controller.security.AuthenticationFailure" />
+	
 	<http auto-config="true" use-expressions="true">
 		
 	 	<headers >
@@ -27,6 +30,8 @@
 			login-page="/login"
 			default-target-url="/app"
 			authentication-failure-url="/login?error"
+			authentication-success-handler-ref="authSuccess"
+			authentication-failure-handler-ref="authFailure"
 			username-parameter="username"
 			password-parameter="password"
 		/>

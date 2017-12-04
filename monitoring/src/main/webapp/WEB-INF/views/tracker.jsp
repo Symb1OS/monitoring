@@ -8,6 +8,7 @@
 <title>Трекер</title>
 <link rel="shortcut icon" 	href="<c:url value="/resources/images/icon.png"/>">
 <link rel="stylesheet" type="text/css" href="<c:url value="/resources/ext6/build/classic/theme-neptune/resources/theme-neptune-all.css"/>">
+<link rel="stylesheet" type="text/css" href="<c:url value="/resources/style/image.css"/>">
 <script type="text/javascript" 	src="<c:url value="/resources/ext6/build/ext-all.js"/>"></script>
 <script type="text/javascript" 	src="<c:url value="/resources/ext6/build/classic/locale/locale-ru.js"/>"></script>
 </head>
@@ -140,7 +141,7 @@ Ext.onReady(function(){
 		tbar : [ {
 			text : 'Создать задачу',
 			id : 'add',
-			icon : 'resources/images/add-bug.png',
+			iconCls: 'icon-add-bug',
 			handler : function() {
 				Ext.getCmp('issueWindow').show().center();		
 			}
@@ -180,7 +181,7 @@ Ext.onReady(function(){
         title: 'Просмотр и редактирование',
         resizable : true,
 	 	draggable : false,
-        icon : 'resources/images/edit-notes.png',
+        iconCls: 'icon-edit-notes',
         closeAction: 'method-hide',
         width: 500,
         height: 450,
@@ -239,7 +240,7 @@ Ext.onReady(function(){
             buttons: [
             	{
             		text: 'Сохранить',
-            		icon : 'resources/images/save.png',
+            		iconCls: 'icon-save',
             		handler: function(){
             			Ext.getCmp('editform').submit({
             				url: 'tracker/issues/update',
@@ -262,7 +263,7 @@ Ext.onReady(function(){
             	},
             	{
             		text: 'Отмена',
-            		icon : 'resources/images/cancel.png',
+            		iconCls: 'icon-cancel',
             		handler: function(){
             			editIssue.hide();
             		}
@@ -281,7 +282,7 @@ Ext.onReady(function(){
 	Ext.create('Ext.Window', {
 		id: 'issueWindow',
 		title: 'Новая задача',
-		icon : 'resources/images/add-bug.png',
+		iconCls: 'icon-add-bug',
 		resizable : false,
 		draggable : false,
         closeAction: 'method-hide',
@@ -323,7 +324,7 @@ Ext.onReady(function(){
             
             buttons: [{
             	text: 'Сохранить',
-            	icon : 'resources/images/save.png',
+            	iconCls: 'icon-save',
             	handler : function(){
 					var form = Ext.getCmp('createform'); 
             		if (form.isValid()){
@@ -349,7 +350,7 @@ Ext.onReady(function(){
             	}
             },{
             	text: 'Отмена',
-            	icon : 'resources/images/cancel.png',
+            	iconCls: 'icon-cancel',
             	handler: function(){
             		Ext.getCmp('issueWindow').hide();
             	}
