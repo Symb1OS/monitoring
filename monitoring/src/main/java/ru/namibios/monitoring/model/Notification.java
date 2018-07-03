@@ -2,9 +2,14 @@ package ru.namibios.monitoring.model;
 
 public abstract class Notification {
 	
-	public static final String KEY_TELEGRAM = "0bc852-1b0d72-4ca6e6"; 
+	public static final String KEY_TELEGRAM;
 	
 	public static final String REG_DATA = "Username: %s \nPassword: %s \nlicence_key: %s";
+	
+	static {
+		KEY_TELEGRAM = System.getenv("TELEGRAMM_API_KEY") == null ? "0bc852-1b0d72-4ca6e6"
+													 			 : System.getenv("TELEGRAMM_API_KEY");  
+	} 
 	
 	protected String message; 
 	
@@ -29,4 +34,7 @@ public abstract class Notification {
 	
 	public abstract void send();
 	
+	public static void main(String[] args) {
+		System.out.println(Notification.KEY_TELEGRAM);
+	}
 }

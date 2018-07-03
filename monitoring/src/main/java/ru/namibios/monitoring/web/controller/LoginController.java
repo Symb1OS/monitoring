@@ -9,10 +9,10 @@ public class LoginController {
 
 	@RequestMapping(value= {"/", "/login"})
 	public ModelAndView login() {
-		
+
 		ModelAndView model = new ModelAndView();
 		model.setViewName("login");
-
+		
 		return model;
 		
 	}
